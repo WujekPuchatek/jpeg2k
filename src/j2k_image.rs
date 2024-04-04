@@ -61,7 +61,8 @@ impl ImageComponent {
 
   /// Component data.
   pub fn data(&self) -> &[i32] {
-    let len = (self.0.w * self.0.h) as usize;
+    let bytes_per_pixel = (self.0.prec as f32 / 8.0).ceil() as u32;
+    let len = (self.0.w * self.0.h * bytes_per_pixel) as usize;
     unsafe { std::slice::from_raw_parts(self.0.data, len) }
   }
 }
